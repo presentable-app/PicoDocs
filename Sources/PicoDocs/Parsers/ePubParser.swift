@@ -12,25 +12,16 @@ import SwiftSoup
 
 public struct EPUBParser: DocumentParserProtocol {
     
-    public let content: Data?
     public let url: URL?
-    
-    public init(content: Data?) {
-        self.content = content
-        self.url = nil
-    }
     
     public init(url: URL?) {
         self.url = url
-        self.content = nil
     }
     
     public func parseDocument(to format: ExportFileType?) async throws -> ParsedDocument {
         
         var document: EPUBDocument?
-        if let content {
-            document = EPUBDocument(data: content)
-        } else if let url {
+        if let url {
             document = EPUBDocument(url: url)
         }
         guard let document = document else {
